@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能记账本 - 个人信息</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="home.html" class="logo">
+                <i class="fas fa-wallet"></i> 智能记账本
+            </a>
+            <div class="nav-links">
+                <a href="home.html">
+                    <i class="fas fa-home"></i> 首页
+                </a>
+                <a href="profile.html">
+                    <i class="fas fa-user"></i> 个人信息
+                </a>
+                <a href="fortune.html">
+                    <i class="fas fa-star"></i> 今日财运
+                </a>
+            </div>
+            <div class="user-info">
+                <span id="nickname">加载中...</span>
+                <button class="logout-btn" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> 退出登录
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="profile-grid">
+            <!-- 个人信息卡片 -->
+            <div class="card profile-card">
+                <div class="card-title">
+                    <i class="fas fa-id-card"></i> 基本信息
+                </div>
+                <div class="profile-info">
+                    <div class="profile-info-item">
+                        <span class="profile-info-label">用户名：</span>
+                        <span class="profile-info-value" id="username">加载中...</span>
+                    </div>
+                    <div class="profile-info-item">
+                        <span class="profile-info-label">昵称：</span>
+                        <span class="profile-info-value" id="current-nickname">加载中...</span>
+                    </div>
+                    <div class="profile-info-item">
+                        <span class="profile-info-label">注册时间：</span>
+                        <span class="profile-info-value" id="register-time">加载中...</span>
+                    </div>
+                </div>
+                <button class="btn btn-outline" id="edit-nickname-btn">
+                    <i class="fas fa-edit"></i> 修改昵称
+                </button>
+            </div>
+
+            <!-- 修改昵称表单 -->
+            <div class="card profile-card" id="nickname-form-card" style="display: none;">
+                <div class="card-title">
+                    <i class="fas fa-pen"></i> 修改昵称
+                </div>
+                <form id="nickname-form">
+                    <div class="form-group">
+                        <label class="form-label" for="new-nickname">新昵称</label>
+                        <input type="text" class="form-control" id="new-nickname" required placeholder="请输入新昵称">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> 保存修改
+                    </button>
+                    <button type="button" class="btn btn-outline" id="cancel-nickname-btn" style="margin-left: 1rem;">
+                        <i class="fas fa-times"></i> 取消
+                    </button>
+                </form>
+            </div>
+
+            <!-- 修改密码卡片 -->
+            <div class="card profile-card">
+                <div class="card-title">
+                    <i class="fas fa-lock"></i> 修改密码
+                </div>
+                <form id="password-form">
+                    <div class="form-group">
+                        <label class="form-label" for="old-password">原密码</label>
+                        <input type="password" class="form-control" id="old-password" required placeholder="请输入原密码">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="new-password">新密码</label>
+                        <input type="password" class="form-control" id="new-password" required minlength="6" placeholder="请输入新密码（至少6位）">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="confirm-password">确认新密码</label>
+                        <input type="password" class="form-control" id="confirm-password" required placeholder="请再次输入新密码">
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-key"></i> 提交修改
+                    </button>
+                </form>
+            </div>
+
+            <!-- 记账小贴士 -->
+            <div class="card profile-card">
+                <div class="card-title">
+                    <i class="fas fa-lightbulb"></i> 记账小贴士
+                </div>
+                <div style="line-height: 2; font-size: 1.05rem;">
+                    <p>💡 建议每日记录收支，避免遗漏</p>
+                    <p>💡 收入/支出类型分类清晰，便于统计分析</p>
+                    <p>💡 定期查看统计图表，优化消费结构</p>
+                    <p>💡 重要支出记得添加备注，方便后续追溯</p>
+                    <p>💡 密码建议定期修改，保障账号安全</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实用工具链接 -->
+        <div class="links-section">
+            <h3 class="links-title">理财工具推荐</h3>
+            <div class="links-container">
+                <a href="https://www.alipay.com" target="_blank" class="link-card">
+                    <i class="fab fa-alipay"></i> 支付宝
+                </a>
+                <a href="https://pay.weixin.qq.com" target="_blank" class="link-card">
+                    <i class="fab fa-weixin"></i> 微信支付
+                </a>
+                <a href="https://www.huoban.com" target="_blank" class="link-card">
+                    <i class="fas fa-calculator"></i> 伙伴云（记账表格）
+                </a>
+                <a href="https://www.zhihu.com/topic/19552824/hot" target="_blank" class="link-card">
+                    <i class="fas fa-book"></i> 知乎理财话题
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能记账本 - 登录/注册</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入图标库（确保可访问） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container auth-container">
+        <div class="card">
+            <div class="card-title" style="text-align: center; border-bottom: none;">
+                <i class="fas fa-wallet"></i> 智能记账本
+            </div>
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="login-tab">登录</div>
+                <div class="auth-tab" id="register-tab">注册</div>
+                <div class="auth-tab" id="forgot-tab">忘记密码</div>
+            </div>
+
+            <!-- 登录表单 -->
+            <form class="auth-form active" id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="login-username">用户名</label>
+                    <input type="text" class="form-control" id="login-username" placeholder="请输入用户名" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="login-password">密码</label>
+                    <input type="password" class="form-control" id="login-password" placeholder="请输入密码" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-sign-in-alt"></i> 登录
+                </button>
+                <div class="text-center mt-4">
+                    <a href="#" class="text-primary" id="go-to-forgot">忘记密码？</a>
+                </div>
+            </form>
+
+            <!-- 注册表单 -->
+            <form class="auth-form" id="register-form">
+                <div class="form-group">
+                    <label class="form-label" for="reg-username">用户名</label>
+                    <input type="text" class="form-control" id="reg-username" placeholder="请输入用户名" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-password">密码</label>
+                    <input type="password" class="form-control" id="reg-password" placeholder="请输入密码（至少6位）" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-nickname">昵称（可选）</label>
+                    <input type="text" class="form-control" id="reg-nickname" placeholder="请输入昵称">
+                </div>
+                <button type="submit" class="btn btn-success w-100">
+                    <i class="fas fa-user-plus"></i> 注册
+                </button>
+                <div class="text-center mt-4">
+                    <a href="#" class="text-primary" id="go-to-login">已有账号？立即登录</a>
+                </div>
+            </form>
+
+            <!-- 忘记密码表单 -->
+            <form class="auth-form" id="forgot-form">
+                <div class="form-group">
+                    <label class="form-label" for="forgot-username">用户名</label>
+                    <input type="text" class="form-control" id="forgot-username" placeholder="请输入注册的用户名" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="forgot-new-password">新密码</label>
+                    <input type="password" class="form-control" id="forgot-new-password" placeholder="请输入新密码（至少6位）" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-outline w-100">
+                    <i class="fas fa-key"></i> 修改密码
+                </button>
+                <div class="text-center mt-4">
+                    <a href="#" class="text-primary" id="forgot-go-to-login">返回登录</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- 实用快捷链接 -->
+        <div class="links-section">
+            <h3 class="links-title">常用工具推荐</h3>
+            <div class="links-container">
+                <a href="https://www.douyin.com" target="_blank" class="link-card">
+                    <i class="fab fa-tiktok"></i> 抖音
+                </a>
+                <a href="https://www.zhihu.com" target="_blank" class="link-card">
+                    <i class="fab fa-zhihu"></i> 知乎
+                </a>
+                <a href="https://www.baidu.com" target="_blank" class="link-card">
+                    <i class="fab fa-baidu"></i> 百度
+                </a>
+                <a href="https://www.taobao.com" target="_blank" class="link-card">
+                    <i class="fab fa-taobao"></i> 淘宝
+                </a>
+                <a href="https://www.weibo.com" target="_blank" class="link-card">
+                    <i class="fab fa-weibo"></i> 微博
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

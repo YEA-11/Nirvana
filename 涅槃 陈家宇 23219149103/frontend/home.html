@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能记账本 - 首页</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入图表库（确保可访问） -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="home.html" class="logo">
+                <i class="fas fa-wallet"></i> 智能记账本
+            </a>
+            <div class="nav-links">
+                <a href="home.html">
+                    <i class="fas fa-home"></i> 首页
+                </a>
+                <a href="profile.html">
+                    <i class="fas fa-user"></i> 个人信息
+                </a>
+                <a href="fortune.html">
+                    <i class="fas fa-star"></i> 今日财运
+                </a>
+            </div>
+            <div class="user-info">
+                <span id="nickname">加载中...</span>
+                <button class="logout-btn" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> 退出登录
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 收支统计卡片 -->
+        <div class="stats-grid">
+            <div class="stat-card income">
+                <div class="stat-title">总收入（元）</div>
+                <div class="stat-value" id="total-income">0.00</div>
+            </div>
+            <div class="stat-card expense">
+                <div class="stat-title">总支出（元）</div>
+                <div class="stat-value" id="total-expense">0.00</div>
+            </div>
+            <div class="stat-card balance">
+                <div class="stat-title">总结余（元）</div>
+                <div class="stat-value" id="total-balance">0.00</div>
+            </div>
+        </div>
+
+        <!-- 图表区域 -->
+        <div class="charts-grid">
+            <div class="card chart-card">
+                <div class="card-title">
+                    <i class="fas fa-chart-pie"></i> 收支类型占比
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <select class="form-control" id="pie-type-select" style="max-width: 200px;">
+                        <option value="income">收入类型</option>
+                        <option value="expense">支出类型</option>
+                    </select>
+                </div>
+                <div class="chart-container" id="pie-chart"></div>
+            </div>
+            <div class="card chart-card">
+                <div class="card-title">
+                    <i class="fas fa-chart-line"></i> 收支趋势
+                </div>
+                <div class="form-group" style="display: flex; gap: 1.2rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <input type="date" class="form-control" id="line-start-date" style="flex: 1; min-width: 150px;">
+                    <input type="date" class="form-control" id="line-end-date" style="flex: 1; min-width: 150px;">
+                    <button class="btn btn-primary" id="line-filter-btn" style="white-space: nowrap;">
+                        <i class="fas fa-filter"></i> 筛选
+                    </button>
+                </div>
+                <div class="chart-container" id="line-chart"></div>
+            </div>
+        </div>
+
+        <!-- 添加记账记录 -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-plus-circle"></i> 添加记账记录
+            </div>
+            <form id="add-record-form">
+                <div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">类型</label>
+                        <select class="form-control" id="record-type" required>
+                            <option value="income">收入</option>
+                            <option value="expense">支出</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">具体类型</label>
+                        <select class="form-control" id="record-subtype" required>
+                            <!-- 收入类型 -->
+                            <option value="工资" data-type="income">工资</option>
+                            <option value="奖金" data-type="income">奖金</option>
+                            <option value="理财收益" data-type="income">理财收益</option>
+                            <option value="兼职收入" data-type="income">兼职收入</option>
+                            <option value="其他收入" data-type="income">其他收入</option>
+                            <!-- 支出类型 -->
+                            <option value="餐饮" data-type="expense">餐饮</option>
+                            <option value="交通" data-type="expense">交通</option>
+                            <option value="购物" data-type="expense">购物</option>
+                            <option value="住房" data-type="expense">住房（房租/房贷）</option>
+                            <option value="娱乐" data-type="expense">娱乐</option>
+                            <option value="医疗" data-type="expense">医疗</option>
+                            <option value="教育" data-type="expense">教育</option>
+                            <option value="其他支出" data-type="expense">其他支出</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">金额（元）</label>
+                        <input type="number" class="form-control" id="record-amount" step="0.01" min="0.01" required placeholder="请输入金额">
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">日期</label>
+                        <input type="date" class="form-control" id="record-date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">备注（可选）</label>
+                    <textarea class="form-control" id="record-remark" rows="3" placeholder="请输入备注信息（如消费场景、收入来源等）"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> 保存记录
+                </button>
+            </form>
+        </div>
+
+        <!-- 记账记录列表 -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-list"></i> 记账记录
+            </div>
+            <div class="records-filter">
+                <select class="form-control" id="list-type-filter">
+                    <option value="">全部类型</option>
+                    <option value="income">收入</option>
+                    <option value="expense">支出</option>
+                </select>
+                <select class="form-control" id="list-subtype-filter">
+                    <option value="">全部子类型</option>
+                    <option value="工资" data-type="income">工资</option>
+                    <option value="奖金" data-type="income">奖金</option>
+                    <option value="理财收益" data-type="income">理财收益</option>
+                    <option value="兼职收入" data-type="income">兼职收入</option>
+                    <option value="其他收入" data-type="income">其他收入</option>
+                    <option value="餐饮" data-type="expense">餐饮</option>
+                    <option value="交通" data-type="expense">交通</option>
+                    <option value="购物" data-type="expense">购物</option>
+                    <option value="住房" data-type="expense">住房</option>
+                    <option value="娱乐" data-type="expense">娱乐</option>
+                    <option value="医疗" data-type="expense">医疗</option>
+                    <option value="教育" data-type="expense">教育</option>
+                    <option value="其他支出" data-type="expense">其他支出</option>
+                </select>
+                <input type="date" class="form-control" id="list-start-date">
+                <input type="date" class="form-control" id="list-end-date">
+                <button class="btn btn-primary" id="list-filter-btn">
+                    <i class="fas fa-filter"></i> 筛选
+                </button>
+                <button class="btn btn-outline" id="list-reset-btn">
+                    <i class="fas fa-redo"></i> 重置
+                </button>
+            </div>
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>类型</th>
+                        <th>子类型</th>
+                        <th>金额（元）</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="records-tbody">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #777;">暂无记账记录，点击"添加记账记录"开始记录收支吧～</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 修改记录模态框（默认隐藏） -->
+    <div id="edit-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center;">
+        <div class="card" style="width: 800px; max-width: 95%;">
+            <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+                <span><i class="fas fa-edit"></i> 修改记录</span>
+                <button id="close-modal" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #777;">&times;</button>
+            </div>
+            <form id="edit-record-form">
+                <input type="hidden" id="edit-record-id">
+                <div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">类型</label>
+                        <select class="form-control" id="edit-record-type" required>
+                            <option value="income">收入</option>
+                            <option value="expense">支出</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">具体类型</label>
+                        <select class="form-control" id="edit-record-subtype" required>
+                            <option value="工资" data-type="income">工资</option>
+                            <option value="奖金" data-type="income">奖金</option>
+                            <option value="理财收益" data-type="income">理财收益</option>
+                            <option value="兼职收入" data-type="income">兼职收入</option>
+                            <option value="其他收入" data-type="income">其他收入</option>
+                            <option value="餐饮" data-type="expense">餐饮</option>
+                            <option value="交通" data-type="expense">交通</option>
+                            <option value="购物" data-type="expense">购物</option>
+                            <option value="住房" data-type="expense">住房（房租/房贷）</option>
+                            <option value="娱乐" data-type="expense">娱乐</option>
+                            <option value="医疗" data-type="expense">医疗</option>
+                            <option value="教育" data-type="expense">教育</option>
+                            <option value="其他支出" data-type="expense">其他支出</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">金额（元）</label>
+                        <input type="number" class="form-control" id="edit-record-amount" step="0.01" min="0.01" required placeholder="请输入金额">
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">日期</label>
+                        <input type="date" class="form-control" id="edit-record-date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">备注（可选）</label>
+                    <textarea class="form-control" id="edit-record-remark" rows="3" placeholder="请输入备注信息"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> 更新记录
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/home.js"></script>
+</body>
+</html>
